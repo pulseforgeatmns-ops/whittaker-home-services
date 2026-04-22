@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whittaker Home Services — Commercial & Residential Cleaning | Manchester, NH</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0f2040;
+    --navy-light: #1a3358;
+    --teal: #00c2a8;
+    --teal-dark: #009e88;
+    --teal-glow: rgba(0, 194, 168, 0.15);
+    --white: #ffffff;
+    --off-white: #f0f4f8;
+    --gray: #8a9bb0;
+    --light-gray: #e8edf3;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--teal);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid rgba(0,194,168,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+  }
+  .cursor.hover { width: 20px; height: 20px; }
+  .cursor-ring.hover { width: 56px; height: 56px; border-color: var(--teal); }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,22,40,0.95) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+    text-transform: uppercase;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-cta {
+    background: var(--teal);
+    color: var(--navy) !important;
+    padding: 0.6rem 1.4rem !important;
+    border-radius: 4px;
+    font-weight: 600 !important;
+    transition: background 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--teal-dark) !important; transform: translateY(-1px); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 3rem 4rem;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: 
+      radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0,194,168,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,194,168,0.05) 0%, transparent 50%),
+      var(--navy);
+  }
+
+  /* Animated grid lines */
+  .grid-lines {
+    position: absolute; inset: 0; overflow: hidden; opacity: 0.06;
+  }
+  .grid-lines::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: 
+      linear-gradient(var(--teal) 1px, transparent 1px),
+      linear-gradient(90deg, var(--teal) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridScroll 20s linear infinite;
+  }
+  @keyframes gridScroll {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(60px, 60px); }
+  }
+
+  /* Floating particles */
+  .particles { position: absolute; inset: 0; overflow: hidden; }
+  .particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: float linear infinite;
+    opacity: 0;
+  }
+  @keyframes float {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 680px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px; height: 1px;
+    background: var(--teal);
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero-title .line-teal { color: var(--teal); }
+  .hero-title .line-outline {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-actions {
+    display: flex; gap: 1rem; align-items: center;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--navy);
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  .btn-primary:hover::after { transform: translateX(0); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,194,168,0.4); }
+
+  .btn-ghost {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); }
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(4px); }
+
+  /* Stats strip */
+  .stats-strip {
+    position: absolute; bottom: 3rem; left: 3rem; right: 3rem;
+    display: flex; gap: 3rem; align-items: flex-end;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+  .stat { border-left: 1px solid rgba(0,194,168,0.3); padding-left: 1.25rem; }
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    line-height: 1;
+    color: var(--teal);
+    letter-spacing: 1px;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 2px;
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 45%;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-image-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 1rem;
+    border-left: 1px solid rgba(0,194,168,0.1);
+  }
+  .placeholder-icon {
+    width: 80px; height: 80px;
+    border: 2px solid rgba(0,194,168,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    animation: pulse 3s ease infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(0,194,168,0.3); }
+    50% { box-shadow: 0 0 0 20px rgba(0,194,168,0); }
+  }
+  .placeholder-text {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* SERVICES */
+  .services {
+    padding: 7rem 3rem;
+    background: var(--navy);
+    position: relative;
+  }
+  .section-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem;
+    gap: 2rem;
+  }
+  .section-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-eyebrow::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--teal);
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1;
+    letter-spacing: 1px;
+  }
+  .section-sub {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    max-width: 320px;
+    text-align: right;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 1.5px;
+    background: rgba(0,194,168,0.1);
+    border: 1.5px solid rgba(0,194,168,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--navy-mid);
+    padding: 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+    cursor: default;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+  .service-card:hover { background: var(--navy-light); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-card.featured {
+    background: linear-gradient(135deg, var(--navy-light) 0%, rgba(0,194,168,0.08) 100%);
+    border-right: 1.5px solid rgba(0,194,168,0.1);
+  }
+  .service-card.featured::before { transform: scaleX(1); }
+
+  .service-tag {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--teal);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+  }
+  .service-tag.residential {
+    background: transparent;
+    color: rgba(255,255,255,0.4);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .service-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(0,194,168,0.08);
+    position: absolute;
+    bottom: 1rem; right: 1.5rem;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+  }
+  .service-card:hover .service-number { color: rgba(0,194,168,0.12); }
+
+  .service-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+  }
+  .service-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.55);
+  }
+
+  /* WHY */
+  .why {
+    padding: 7rem 3rem;
+    background: var(--navy-mid);
+    position: relative;
+    overflow: hidden;
+  }
+  .why::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,194,168,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    margin-top: 4rem;
+  }
+
+  .why-features { display: flex; flex-direction: column; gap: 0; }
+  .why-feature {
+    display: flex; gap: 1.5rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    position: relative;
+    transition: padding-left 0.3s;
+  }
+  .why-feature::before {
+    content: '';
+    position: absolute; left: -3rem; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--teal);
+    transform: scaleY(0);
+    transition: transform 0.3s;
+    transform-origin: top;
+  }
+  .why-feature:hover { padding-left: 0.5rem; }
+  .why-feature:hover::before { transform: scaleY(1); }
+
+  .why-feature-icon {
+    width: 44px; height: 44px;
+    background: var(--teal-glow);
+    border: 1px solid rgba(0,194,168,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .why-feature:hover .why-feature-icon {
+    background: rgba(0,194,168,0.25);
+    border-color: var(--teal);
+  }
+  .why-feature-title {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .why-feature-desc {
+    font-size: 0.83rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.6;
+  }
+
+  .why-visual {
+    background: linear-gradient(135deg, var(--navy-light) 0%, rgba(0,194,168,0.05) 100%);
+    border: 1px solid rgba(0,194,168,0.12);
+    border-radius: 12px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .why-visual-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: var(--teal);
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .testimonial-card:hover {
+    border-color: rgba(0,194,168,0.2);
+    background: rgba(0,194,168,0.04);
+  }
+  .testimonial-text {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.7);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .testimonial-avatar {
+    width: 32px; height: 32px;
+    background: var(--teal-glow);
+    border: 1px solid rgba(0,194,168,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--teal);
+  }
+  .testimonial-name { font-size: 0.8rem; font-weight: 600; }
+  .testimonial-company { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
+  .stars { color: var(--teal); font-size: 0.7rem; margin-bottom: 0.5rem; }
+
+  /* COMMERCIAL CTA */
+  .commercial-cta {
+    padding: 7rem 3rem;
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-inner {
+    background: linear-gradient(135deg, var(--navy-light) 0%, rgba(0,194,168,0.1) 100%);
+    border: 1px solid rgba(0,194,168,0.2);
+    border-radius: 16px;
+    padding: 5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-inner::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,194,168,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1.25rem;
+  }
+  .cta-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 1.25rem;
+  }
+  .cta-sub {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .cta-actions {
+    display: flex; gap: 1rem; justify-content: center; align-items: center;
+  }
+  .btn-large {
+    padding: 1.1rem 2.5rem;
+    font-size: 1rem;
+    letter-spacing: 1px;
+  }
+
+  /* SERVICE AREAS */
+  .areas {
+    padding: 5rem 3rem;
+    background: var(--navy-mid);
+    border-top: 1px solid rgba(0,194,168,0.08);
+  }
+  .areas-grid {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
+  }
+  .area-pill {
+    background: rgba(0,194,168,0.06);
+    border: 1px solid rgba(0,194,168,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 0.5rem 1.25rem;
+    border-radius: 99px;
+    font-size: 0.83rem;
+    transition: all 0.2s;
+  }
+  .area-pill:hover {
+    background: rgba(0,194,168,0.15);
+    border-color: var(--teal);
+    color: var(--white);
+    transform: translateY(-2px);
+  }
+  .area-pill.primary {
+    background: rgba(0,194,168,0.12);
+    border-color: rgba(0,194,168,0.3);
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  /* CONTACT */
+  .contact {
+    padding: 7rem 3rem;
+    background: var(--navy);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+  .contact-info { }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: var(--teal-glow);
+    border: 1px solid rgba(0,194,168,0.2);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-label { font-size: 0.72rem; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+  .contact-value { font-size: 0.95rem; color: rgba(255,255,255,0.8); }
+
+  /* Form */
+  .contact-form { }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 0.5rem;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    padding: 0.85rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--teal);
+    background: rgba(0,194,168,0.05);
+  }
+  .form-group select option { background: var(--navy-mid); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-submit {
+    width: 100%;
+    background: var(--teal);
+    color: var(--navy);
+    border: none;
+    padding: 1rem;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: none;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .form-submit:hover {
+    background: var(--teal-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,194,168,0.4);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy-mid);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2.5rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.6);
+  }
+  .footer-brand span { color: var(--teal); }
+  .footer-copy {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.25);
+  }
+  .footer-powered {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.2);
+  }
+  .footer-powered a { color: rgba(0,194,168,0.5); text-decoration: none; }
+  .footer-powered a:hover { color: var(--teal); }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Teal line accent */
+  .teal { color: var(--teal); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: rgba(0,194,168,0.3); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">WHITTAKER<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#areas">Service Area</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-lines"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Manchester, NH · Est. 2024</div>
+    <h1 class="hero-title">
+      <div>COMMERCIAL</div>
+      <div class="line-teal">CLEANING</div>
+      <div class="line-outline">DONE RIGHT</div>
+    </h1>
+    <p class="hero-sub">
+      Professional cleaning services for offices, facilities, and commercial spaces across Manchester and Southern NH. Reliable, insured, and built around your schedule.
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary btn-large">Get a Free Quote</a>
+      <a href="#services" class="btn-ghost">
+        Our Services
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-image-placeholder">
+      <div class="placeholder-icon">🏢</div>
+      <div class="placeholder-text">Photo coming soon</div>
+    </div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="stat-number">50+</div>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">5★</div>
+      <div class="stat-label">Avg. Rating</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Insured & Bonded</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">NH</div>
+      <div class="stat-label">Locally Owned</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">What We Do</div>
+      <h2 class="section-title">SERVICES THAT<br>DELIVER RESULTS</h2>
+    </div>
+    <p class="section-sub">From daily office maintenance to one-time deep cleans — we handle it all so you can focus on running your business.</p>
+  </div>
+
+  <div class="services-grid reveal">
+    <div class="service-card featured">
+      <div class="service-tag">Most Popular</div>
+      <span class="service-icon">🏢</span>
+      <div class="service-name">COMMERCIAL OFFICE CLEANING</div>
+      <p class="service-desc">Daily, weekly, or custom-scheduled cleaning for offices, waiting rooms, break rooms, and common areas. We work around your hours — early morning, evenings, or weekends.</p>
+      <div class="service-number">01</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag">Commercial</div>
+      <span class="service-icon">🏭</span>
+      <div class="service-name">FACILITY & INDUSTRIAL</div>
+      <p class="service-desc">Warehouses, retail floors, medical offices, and multi-tenant buildings. We bring the right equipment for the right job.</p>
+      <div class="service-number">02</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag">Commercial</div>
+      <span class="service-icon">🔬</span>
+      <div class="service-name">DEEP CLEAN & SANITIZING</div>
+      <p class="service-desc">Full deep clean service including high-touch surface disinfection. Ideal for post-construction, move-in/move-out, or seasonal resets.</p>
+      <div class="service-number">03</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag residential">Residential</div>
+      <span class="service-icon">🏠</span>
+      <div class="service-name">HOME CLEANING</div>
+      <p class="service-desc">Regular or one-time home cleaning for Manchester-area residents. Standard, deep clean, and move-in/move-out packages available.</p>
+      <div class="service-number">04</div>
+    </div>
+    <div class="service-card">
+      <div class="service-tag residential">Residential</div>
+      <span class="service-icon">✨</span>
+      <div class="service-name">MOVE IN / MOVE OUT</div>
+      <p class="service-desc">Leave your old place spotless or start fresh in your new one. Thorough top-to-bottom cleaning with same-week availability.</p>
+      <div class="service-number">05</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="why" id="why">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">Why Whittaker</div>
+      <h2 class="section-title">THE DIFFERENCE<br>IS IN THE DETAILS</h2>
+    </div>
+  </div>
+
+  <div class="why-grid">
+    <div class="why-features reveal">
+      <div class="why-feature">
+        <div class="why-feature-icon">🛡️</div>
+        <div>
+          <div class="why-feature-title">Fully Insured & Bonded</div>
+          <div class="why-feature-desc">Full liability coverage on every job. You're protected, always.</div>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">📅</div>
+        <div>
+          <div class="why-feature-title">Flexible Scheduling</div>
+          <div class="why-feature-desc">Early mornings, evenings, weekends — we work around your business, not the other way around.</div>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">📍</div>
+        <div>
+          <div class="why-feature-title">Locally Owned</div>
+          <div class="why-feature-desc">Manchester-based, community-focused. You're supporting a local business every time you book.</div>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">✅</div>
+        <div>
+          <div class="why-feature-title">Consistent Quality</div>
+          <div class="why-feature-desc">Same standards every visit. No shortcuts, no excuses. You know what you're getting.</div>
+        </div>
+      </div>
+      <div class="why-feature">
+        <div class="why-feature-icon">💬</div>
+        <div>
+          <div class="why-feature-title">Responsive Communication</div>
+          <div class="why-feature-desc">Questions, changes, last-minute requests — we pick up and we respond.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="why-visual reveal reveal-delay-2">
+      <div class="why-visual-title">What Clients Say</div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"Finally a cleaning company that shows up on time and actually does what they say. Our office has never looked this good consistently."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MR</div>
+          <div>
+            <div class="testimonial-name">M. Reynolds</div>
+            <div class="testimonial-company">Property Manager, Manchester NH</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <div class="testimonial-text">"They cleaned our office before we moved in. Immaculate. Booked them for weekly service on the spot. Highly recommend."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">KL</div>
+          <div>
+            <div class="testimonial-name">K. LaPointe</div>
+            <div class="testimonial-company">Small Business Owner, Bedford NH</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:0.72rem; color:rgba(255,255,255,0.3); margin-top:1rem; text-align:center; letter-spacing:1px; text-transform:uppercase;">Placeholder reviews — real ones coming soon</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMERCIAL CTA -->
+<section class="commercial-cta">
+  <div class="cta-inner reveal">
+    <div class="cta-eyebrow">Commercial Accounts Welcome</div>
+    <h2 class="cta-title">READY TO KEEP YOUR<br><span class="teal">FACILITY SPOTLESS?</span></h2>
+    <p class="cta-sub">We're actively taking on new commercial accounts in the Manchester area. Get a custom quote within 24 hours.</p>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-primary btn-large">Request a Quote</a>
+      <a href="tel:+16035550000" class="btn-ghost">
+        Call Us Direct
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE AREAS -->
+<section class="areas" id="areas">
+  <div class="reveal">
+    <div class="section-eyebrow">Where We Work</div>
+    <h2 class="section-title" style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:1px;margin-bottom:0.5rem;">SERVICE AREA</h2>
+    <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:1.5rem;">Based in Manchester, serving Southern New Hampshire</p>
+  </div>
+  <div class="areas-grid reveal">
+    <div class="area-pill primary">Manchester ★</div>
+    <div class="area-pill">Bedford</div>
+    <div class="area-pill">Goffstown</div>
+    <div class="area-pill">Hooksett</div>
+    <div class="area-pill">Londonderry</div>
+    <div class="area-pill">Auburn</div>
+    <div class="area-pill">Candia</div>
+    <div class="area-pill">Derry</div>
+    <div class="area-pill">Merrimack</div>
+    <div class="area-pill">Nashua</div>
+    <div class="area-pill primary">+ Surrounding Areas</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-header reveal">
+    <div>
+      <div class="section-eyebrow">Get In Touch</div>
+      <h2 class="section-title">LET'S TALK<br>ABOUT YOUR SPACE</h2>
+    </div>
+    <p class="section-sub">We respond to all quote requests within 24 hours. Commercial accounts get priority scheduling.</p>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Based In</div>
+          <div class="contact-value">Manchester, New Hampshire</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">Coming soon</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">Coming soon</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">🕐</div>
+        <div>
+          <div class="contact-label">Response Time</div>
+          <div class="contact-value">Within 24 hours</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form reveal reveal-delay-2">
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="John" required>
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="john@yourcompany.com" required>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="(603) 555-0000">
+        </div>
+        <div class="form-group">
+          <label>Service Type</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Commercial Office Cleaning</option>
+            <option>Facility & Industrial Cleaning</option>
+            <option>Deep Clean & Sanitizing</option>
+            <option>Residential Home Cleaning</option>
+            <option>Move In / Move Out</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your space</label>
+          <textarea placeholder="Square footage, frequency, any specific requirements..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Quote Request →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">WHITTAKER<span>.</span></div>
+  <div class="footer-copy">© 2026 Whittaker Home Services · Manchester, NH · All rights reserved</div>
+  <div class="footer-powered">Powered by <a href="https://gopulseforge.com" target="_blank">Pulseforge</a></div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button, .service-card, .why-feature, .testimonial-card, .area-pill').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+
+  // Particles
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 50 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+    container.appendChild(p);
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    btn.textContent = '✓ Request Sent — We\'ll be in touch within 24 hours';
+    btn.style.background = 'rgba(0,194,168,0.3)';
+    btn.style.color = 'rgba(255,255,255,0.8)';
+    btn.disabled = true;
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 50
+        ? 'rgba(10,22,40,0.97)'
+        : 'linear-gradient(to bottom, rgba(10,22,40,0.95) 0%, transparent 100%)';
+  });
+</script>
+</body>
+</html>
