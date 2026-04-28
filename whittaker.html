@@ -20,9 +20,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--navy);
@@ -31,14 +29,14 @@
     cursor: none;
   }
 
-  /* Custom cursor */
+  /* ─── CUSTOM CURSOR ─── */
   .cursor {
     width: 12px; height: 12px;
     background: var(--teal);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 99999;
     transform: translate(-50%, -50%);
     transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
     mix-blend-mode: screen;
@@ -49,20 +47,21 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 99998;
     transform: translate(-50%, -50%);
     transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
   }
   .cursor.hover { width: 20px; height: 20px; }
   .cursor-ring.hover { width: 56px; height: 56px; border-color: var(--teal); }
 
-  /* NAV */
+  /* ─── NAV ─── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 1.25rem 3rem;
     display: flex; align-items: center; justify-content: space-between;
     background: linear-gradient(to bottom, rgba(10,22,40,0.95) 0%, transparent 100%);
     backdrop-filter: blur(8px);
+    transition: background 0.3s;
   }
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
@@ -72,7 +71,7 @@
     text-decoration: none;
   }
   .nav-logo span { color: var(--teal); }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
   .nav-links a {
     color: rgba(255,255,255,0.7);
     text-decoration: none;
@@ -84,16 +83,17 @@
   }
   .nav-links a:hover { color: var(--teal); }
   .nav-cta {
-    background: var(--teal);
+    background: var(--teal) !important;
     color: var(--navy) !important;
     padding: 0.6rem 1.4rem !important;
     border-radius: 4px;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     transition: background 0.2s, transform 0.2s !important;
+    cursor: none;
   }
-  .nav-cta:hover { background: var(--teal-dark) !important; transform: translateY(-1px); }
+  .nav-cta:hover { background: var(--teal-dark) !important; transform: translateY(-1px); color: var(--navy) !important; }
 
-  /* HERO */
+  /* ─── HERO ─── */
   .hero {
     min-height: 100vh;
     display: flex; align-items: center;
@@ -101,7 +101,6 @@
     overflow: hidden;
     padding: 8rem 3rem 4rem;
   }
-
   .hero-bg {
     position: absolute; inset: 0;
     background: 
@@ -109,11 +108,7 @@
       radial-gradient(ellipse 50% 50% at 20% 80%, rgba(0,194,168,0.05) 0%, transparent 50%),
       var(--navy);
   }
-
-  /* Animated grid lines */
-  .grid-lines {
-    position: absolute; inset: 0; overflow: hidden; opacity: 0.06;
-  }
+  .grid-lines { position: absolute; inset: 0; overflow: hidden; opacity: 0.06; }
   .grid-lines::before {
     content: '';
     position: absolute; inset: 0;
@@ -127,8 +122,6 @@
     0% { transform: translate(0, 0); }
     100% { transform: translate(60px, 60px); }
   }
-
-  /* Floating particles */
   .particles { position: absolute; inset: 0; overflow: hidden; }
   .particle {
     position: absolute;
@@ -144,620 +137,508 @@
     90% { opacity: 0.6; }
     100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
   }
-
-  .hero-content {
-    position: relative; z-index: 2;
-    max-width: 680px;
-  }
-
+  .hero-content { position: relative; z-index: 2; max-width: 680px; }
   .hero-eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards;
   }
-  .hero-eyebrow::before {
-    content: '';
-    display: block;
-    width: 32px; height: 1px;
-    background: var(--teal);
-  }
-
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--teal); }
   .hero-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(4rem, 9vw, 7.5rem);
-    line-height: 0.92;
-    letter-spacing: 1px;
-    margin-bottom: 1.5rem;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
+    line-height: 0.92; letter-spacing: 1px; margin-bottom: 1.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
   }
   .hero-title .line-teal { color: var(--teal); }
-  .hero-title .line-outline {
-    -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
-    color: transparent;
-  }
-
+  .hero-title .line-outline { -webkit-text-stroke: 1.5px rgba(255,255,255,0.3); color: transparent; }
   .hero-sub {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.65);
-    max-width: 480px;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
+    font-size: 1.1rem; line-height: 1.7; color: rgba(255,255,255,0.65);
+    max-width: 480px; margin-bottom: 2.5rem; font-weight: 300;
+    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
   }
-
   .hero-actions {
     display: flex; gap: 1rem; align-items: center;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.8s forwards;
+    opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards;
   }
-
   .btn-primary {
-    background: var(--teal);
-    color: var(--navy);
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
+    background: var(--teal); color: var(--navy);
+    padding: 1rem 2rem; border-radius: 4px;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.5px;
+    text-decoration: none; text-transform: uppercase;
+    transition: all 0.2s; position: relative; overflow: hidden;
+    border: none; cursor: none; display: inline-block;
   }
   .btn-primary::after {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: rgba(255,255,255,0.2);
-    transform: translateX(-100%);
-    transition: transform 0.3s;
+    transform: translateX(-100%); transition: transform 0.3s;
   }
   .btn-primary:hover::after { transform: translateX(0); }
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,194,168,0.4); }
-
   .btn-ghost {
-    color: rgba(255,255,255,0.7);
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    display: flex; align-items: center; gap: 8px;
-    transition: color 0.2s;
+    color: rgba(255,255,255,0.7); font-size: 0.9rem; font-weight: 500;
+    text-decoration: none; display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s; background: none; border: none; cursor: none;
   }
   .btn-ghost:hover { color: var(--white); }
   .btn-ghost svg { transition: transform 0.2s; }
   .btn-ghost:hover svg { transform: translateX(4px); }
-
-  /* Stats strip */
   .stats-strip {
     position: absolute; bottom: 3rem; left: 3rem; right: 3rem;
     display: flex; gap: 3rem; align-items: flex-end;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 1s forwards;
+    opacity: 0; animation: fadeUp 0.8s ease 1s forwards;
   }
   .stat { border-left: 1px solid rgba(0,194,168,0.3); padding-left: 1.25rem; }
-  .stat-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.8rem;
-    line-height: 1;
-    color: var(--teal);
-    letter-spacing: 1px;
-  }
-  .stat-label {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.45);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-top: 2px;
-  }
-
-  /* Hero visual */
-  .hero-visual {
-    position: absolute; right: 0; top: 0; bottom: 0;
-    width: 45%;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
+  .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 1; color: var(--teal); letter-spacing: 1px; }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+  .hero-visual { position: absolute; right: 0; top: 0; bottom: 0; width: 45%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
   .hero-image-placeholder {
     width: 100%; height: 100%;
     background: linear-gradient(135deg, var(--navy-mid) 0%, var(--navy-light) 100%);
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    gap: 1rem;
-    border-left: 1px solid rgba(0,194,168,0.1);
+    gap: 1rem; border-left: 1px solid rgba(0,194,168,0.1);
   }
   .placeholder-icon {
-    width: 80px; height: 80px;
-    border: 2px solid rgba(0,194,168,0.3);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2rem;
-    animation: pulse 3s ease infinite;
+    width: 80px; height: 80px; border: 2px solid rgba(0,194,168,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; animation: pulse 3s ease infinite;
   }
   @keyframes pulse {
     0%, 100% { box-shadow: 0 0 0 0 rgba(0,194,168,0.3); }
     50% { box-shadow: 0 0 0 20px rgba(0,194,168,0); }
   }
-  .placeholder-text {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+  .placeholder-text { font-size: 0.75rem; color: rgba(255,255,255,0.3); letter-spacing: 2px; text-transform: uppercase; }
 
-  /* SERVICES */
-  .services {
-    padding: 7rem 3rem;
-    background: var(--navy);
-    position: relative;
-  }
-  .section-header {
-    display: flex; align-items: flex-end; justify-content: space-between;
-    margin-bottom: 3.5rem;
-    gap: 2rem;
-  }
+  /* ─── SERVICES ─── */
+  .services { padding: 7rem 3rem; background: var(--navy); position: relative; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3.5rem; gap: 2rem; }
   .section-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 0.75rem;
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;
     display: flex; align-items: center; gap: 8px;
   }
-  .section-eyebrow::before {
-    content: ''; display: block;
-    width: 24px; height: 1px; background: var(--teal);
-  }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1;
-    letter-spacing: 1px;
-  }
-  .section-sub {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.7;
-    max-width: 320px;
-    text-align: right;
-  }
-
+  .section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--teal); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1; letter-spacing: 1px; }
+  .section-sub { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 320px; text-align: right; }
   .services-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 1.5px;
-    background: rgba(0,194,168,0.1);
-    border: 1.5px solid rgba(0,194,168,0.1);
-    border-radius: 8px;
-    overflow: hidden;
+    display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 1.5px;
+    background: rgba(0,194,168,0.1); border: 1.5px solid rgba(0,194,168,0.1);
+    border-radius: 8px; overflow: hidden;
   }
-
   .service-card {
-    background: var(--navy-mid);
-    padding: 2.5rem;
-    position: relative;
-    transition: background 0.3s;
-    cursor: default;
-    overflow: hidden;
+    background: var(--navy-mid); padding: 2.5rem; position: relative;
+    transition: background 0.3s; cursor: default; overflow: hidden;
   }
   .service-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--teal);
-    transform: scaleX(0);
-    transition: transform 0.3s;
-    transform-origin: left;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--teal); transform: scaleX(0); transition: transform 0.3s; transform-origin: left;
   }
   .service-card:hover { background: var(--navy-light); }
   .service-card:hover::before { transform: scaleX(1); }
-
   .service-card.featured {
     background: linear-gradient(135deg, var(--navy-light) 0%, rgba(0,194,168,0.08) 100%);
     border-right: 1.5px solid rgba(0,194,168,0.1);
   }
   .service-card.featured::before { transform: scaleX(1); }
-
   .service-tag {
-    display: inline-block;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: var(--teal);
-    padding: 3px 8px;
-    border-radius: 2px;
-    margin-bottom: 1.5rem;
+    display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--navy); background: var(--teal);
+    padding: 3px 8px; border-radius: 2px; margin-bottom: 1.5rem;
   }
-  .service-tag.residential {
-    background: transparent;
-    color: rgba(255,255,255,0.4);
-    border: 1px solid rgba(255,255,255,0.15);
-  }
-
+  .service-tag.residential { background: transparent; color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.15); }
   .service-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    line-height: 1;
-    color: rgba(0,194,168,0.08);
-    position: absolute;
-    bottom: 1rem; right: 1.5rem;
-    letter-spacing: 2px;
-    transition: color 0.3s;
+    font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1;
+    color: rgba(0,194,168,0.08); position: absolute; bottom: 1rem; right: 1.5rem;
+    letter-spacing: 2px; transition: color 0.3s;
   }
   .service-card:hover .service-number { color: rgba(0,194,168,0.12); }
+  .service-icon { font-size: 1.8rem; margin-bottom: 1rem; display: block; }
+  .service-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; margin-bottom: 0.75rem; line-height: 1; }
+  .service-desc { font-size: 0.85rem; line-height: 1.7; color: rgba(255,255,255,0.55); }
 
-  .service-icon {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    display: block;
-  }
-  .service-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 1px;
-    margin-bottom: 0.75rem;
-    line-height: 1;
-  }
-  .service-desc {
-    font-size: 0.85rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.55);
-  }
-
-  /* WHY */
-  .why {
-    padding: 7rem 3rem;
-    background: var(--navy-mid);
-    position: relative;
-    overflow: hidden;
-  }
+  /* ─── WHY ─── */
+  .why { padding: 7rem 3rem; background: var(--navy-mid); position: relative; overflow: hidden; }
   .why::before {
-    content: '';
-    position: absolute;
-    top: -200px; right: -200px;
+    content: ''; position: absolute; top: -200px; right: -200px;
     width: 600px; height: 600px;
     background: radial-gradient(circle, rgba(0,194,168,0.06) 0%, transparent 70%);
     pointer-events: none;
   }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    margin-top: 4rem;
-  }
-
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; margin-top: 4rem; }
   .why-features { display: flex; flex-direction: column; gap: 0; }
   .why-feature {
-    display: flex; gap: 1.5rem;
-    padding: 1.75rem 0;
+    display: flex; gap: 1.5rem; padding: 1.75rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.06);
-    position: relative;
-    transition: padding-left 0.3s;
+    position: relative; transition: padding-left 0.3s;
   }
   .why-feature::before {
-    content: '';
-    position: absolute; left: -3rem; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--teal);
-    transform: scaleY(0);
-    transition: transform 0.3s;
-    transform-origin: top;
+    content: ''; position: absolute; left: -3rem; top: 0; bottom: 0; width: 3px;
+    background: var(--teal); transform: scaleY(0); transition: transform 0.3s; transform-origin: top;
   }
   .why-feature:hover { padding-left: 0.5rem; }
   .why-feature:hover::before { transform: scaleY(1); }
-
   .why-feature-icon {
-    width: 44px; height: 44px;
-    background: var(--teal-glow);
-    border: 1px solid rgba(0,194,168,0.2);
-    border-radius: 8px;
+    width: 44px; height: 44px; background: var(--teal-glow);
+    border: 1px solid rgba(0,194,168,0.2); border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.1rem;
-    flex-shrink: 0;
-    transition: background 0.3s, border-color 0.3s;
+    font-size: 1.1rem; flex-shrink: 0; transition: background 0.3s, border-color 0.3s;
   }
-  .why-feature:hover .why-feature-icon {
-    background: rgba(0,194,168,0.25);
-    border-color: var(--teal);
-  }
-  .why-feature-title {
-    font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
-  }
-  .why-feature-desc {
-    font-size: 0.83rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
-  }
-
+  .why-feature:hover .why-feature-icon { background: rgba(0,194,168,0.25); border-color: var(--teal); }
+  .why-feature-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+  .why-feature-desc { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
   .why-visual {
     background: linear-gradient(135deg, var(--navy-light) 0%, rgba(0,194,168,0.05) 100%);
-    border: 1px solid rgba(0,194,168,0.12);
-    border-radius: 12px;
-    padding: 3rem;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid rgba(0,194,168,0.12); border-radius: 12px; padding: 3rem;
+    position: relative; overflow: hidden;
   }
-  .why-visual-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    color: var(--teal);
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-  }
+  .why-visual-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 2px; color: var(--teal); margin-bottom: 2rem; text-transform: uppercase; }
   .testimonial-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 1.5rem; margin-bottom: 1rem;
     transition: border-color 0.3s, background 0.3s;
   }
-  .testimonial-card:hover {
-    border-color: rgba(0,194,168,0.2);
-    background: rgba(0,194,168,0.04);
-  }
-  .testimonial-text {
-    font-size: 0.88rem;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.7);
-    font-style: italic;
-    margin-bottom: 1rem;
-  }
-  .testimonial-author {
-    display: flex; align-items: center; gap: 10px;
-  }
+  .testimonial-card:hover { border-color: rgba(0,194,168,0.2); background: rgba(0,194,168,0.04); }
+  .testimonial-text { font-size: 0.88rem; line-height: 1.7; color: rgba(255,255,255,0.7); font-style: italic; margin-bottom: 1rem; }
+  .testimonial-author { display: flex; align-items: center; gap: 10px; }
   .testimonial-avatar {
-    width: 32px; height: 32px;
-    background: var(--teal-glow);
-    border: 1px solid rgba(0,194,168,0.3);
-    border-radius: 50%;
+    width: 32px; height: 32px; background: var(--teal-glow);
+    border: 1px solid rgba(0,194,168,0.3); border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--teal);
+    font-size: 0.8rem; font-weight: 700; color: var(--teal);
   }
   .testimonial-name { font-size: 0.8rem; font-weight: 600; }
   .testimonial-company { font-size: 0.72rem; color: rgba(255,255,255,0.4); }
   .stars { color: var(--teal); font-size: 0.7rem; margin-bottom: 0.5rem; }
 
-  /* COMMERCIAL CTA */
-  .commercial-cta {
-    padding: 7rem 3rem;
-    background: var(--navy);
-    position: relative;
-    overflow: hidden;
-  }
+  /* ─── COMMERCIAL CTA ─── */
+  .commercial-cta { padding: 7rem 3rem; background: var(--navy); position: relative; overflow: hidden; }
   .cta-inner {
     background: linear-gradient(135deg, var(--navy-light) 0%, rgba(0,194,168,0.1) 100%);
-    border: 1px solid rgba(0,194,168,0.2);
-    border-radius: 16px;
-    padding: 5rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid rgba(0,194,168,0.2); border-radius: 16px; padding: 5rem;
+    text-align: center; position: relative; overflow: hidden;
   }
   .cta-inner::before {
-    content: '';
-    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
     width: 400px; height: 400px;
     background: radial-gradient(circle, rgba(0,194,168,0.1) 0%, transparent 70%);
     pointer-events: none;
   }
-  .cta-eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--teal);
-    margin-bottom: 1.25rem;
-  }
-  .cta-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    letter-spacing: 1px;
-    line-height: 1;
-    margin-bottom: 1.25rem;
-  }
-  .cta-sub {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.6);
-    max-width: 480px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-    font-weight: 300;
-  }
-  .cta-actions {
-    display: flex; gap: 1rem; justify-content: center; align-items: center;
-  }
-  .btn-large {
-    padding: 1.1rem 2.5rem;
-    font-size: 1rem;
-    letter-spacing: 1px;
-  }
+  .cta-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); margin-bottom: 1.25rem; }
+  .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); letter-spacing: 1px; line-height: 1; margin-bottom: 1.25rem; }
+  .cta-sub { font-size: 1rem; color: rgba(255,255,255,0.6); max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; font-weight: 300; }
+  .cta-actions { display: flex; gap: 1rem; justify-content: center; align-items: center; }
+  .btn-large { padding: 1.1rem 2.5rem; font-size: 1rem; letter-spacing: 1px; }
 
-  /* SERVICE AREAS */
-  .areas {
-    padding: 5rem 3rem;
-    background: var(--navy-mid);
-    border-top: 1px solid rgba(0,194,168,0.08);
-  }
-  .areas-grid {
-    display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
-  }
+  /* ─── AREAS ─── */
+  .areas { padding: 5rem 3rem; background: var(--navy-mid); border-top: 1px solid rgba(0,194,168,0.08); }
+  .areas-grid { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
   .area-pill {
-    background: rgba(0,194,168,0.06);
-    border: 1px solid rgba(0,194,168,0.15);
-    color: rgba(255,255,255,0.7);
-    padding: 0.5rem 1.25rem;
-    border-radius: 99px;
-    font-size: 0.83rem;
-    transition: all 0.2s;
+    background: rgba(0,194,168,0.06); border: 1px solid rgba(0,194,168,0.15);
+    color: rgba(255,255,255,0.7); padding: 0.5rem 1.25rem; border-radius: 99px;
+    font-size: 0.83rem; transition: all 0.2s;
   }
-  .area-pill:hover {
-    background: rgba(0,194,168,0.15);
-    border-color: var(--teal);
-    color: var(--white);
-    transform: translateY(-2px);
-  }
-  .area-pill.primary {
-    background: rgba(0,194,168,0.12);
-    border-color: rgba(0,194,168,0.3);
-    color: var(--teal);
-    font-weight: 500;
-  }
+  .area-pill:hover { background: rgba(0,194,168,0.15); border-color: var(--teal); color: var(--white); transform: translateY(-2px); }
+  .area-pill.primary { background: rgba(0,194,168,0.12); border-color: rgba(0,194,168,0.3); color: var(--teal); font-weight: 500; }
 
-  /* CONTACT */
-  .contact {
-    padding: 7rem 3rem;
-    background: var(--navy);
-  }
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-    margin-top: 4rem;
-  }
-  .contact-info { }
-  .contact-detail {
-    display: flex; align-items: flex-start; gap: 1rem;
-    margin-bottom: 1.5rem;
-  }
-  .contact-icon {
-    width: 40px; height: 40px;
-    background: var(--teal-glow);
-    border: 1px solid rgba(0,194,168,0.2);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
+  /* ─── CONTACT ─── */
+  .contact { padding: 7rem 3rem; background: var(--navy); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-top: 4rem; }
+  .contact-detail { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+  .contact-icon { width: 40px; height: 40px; background: var(--teal-glow); border: 1px solid rgba(0,194,168,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
   .contact-label { font-size: 0.72rem; color: var(--teal); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
   .contact-value { font-size: 0.95rem; color: rgba(255,255,255,0.8); }
-
-  /* Form */
-  .contact-form { }
   .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
   .form-group { margin-bottom: 1rem; }
-  .form-group label {
-    display: block;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 0.5rem;
-  }
+  .form-group label { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.5rem; }
   .form-group input,
   .form-group select,
   .form-group textarea {
-    width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    padding: 0.85rem 1rem;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    transition: border-color 0.2s, background 0.2s;
-    outline: none;
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px; padding: 0.85rem 1rem; color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    transition: border-color 0.2s, background 0.2s; outline: none;
   }
   .form-group input:focus,
   .form-group select:focus,
-  .form-group textarea:focus {
-    border-color: var(--teal);
-    background: rgba(0,194,168,0.05);
-  }
+  .form-group textarea:focus { border-color: var(--teal); background: rgba(0,194,168,0.05); }
   .form-group select option { background: var(--navy-mid); }
   .form-group textarea { resize: vertical; min-height: 120px; }
   .form-submit {
-    width: 100%;
-    background: var(--teal);
-    color: var(--navy);
-    border: none;
-    padding: 1rem;
-    border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: none;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
+    width: 100%; background: var(--teal); color: var(--navy); border: none;
+    padding: 1rem; border-radius: 6px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    cursor: none; transition: all 0.2s; position: relative; overflow: hidden;
   }
-  .form-submit:hover {
-    background: var(--teal-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0,194,168,0.4);
-  }
+  .form-submit:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,194,168,0.4); }
 
-  /* FOOTER */
-  footer {
-    background: var(--navy-mid);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 2.5rem 3rem;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .footer-brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-    color: rgba(255,255,255,0.6);
-  }
+  /* ─── FOOTER ─── */
+  footer { background: var(--navy-mid); border-top: 1px solid rgba(255,255,255,0.06); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 2px; color: rgba(255,255,255,0.6); }
   .footer-brand span { color: var(--teal); }
-  .footer-copy {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.25);
-  }
-  .footer-powered {
-    font-size: 0.72rem;
-    color: rgba(255,255,255,0.2);
-  }
+  .footer-copy { font-size: 0.78rem; color: rgba(255,255,255,0.25); }
+  .footer-powered { font-size: 0.72rem; color: rgba(255,255,255,0.2); }
   .footer-powered a { color: rgba(0,194,168,0.5); text-decoration: none; }
   .footer-powered a:hover { color: var(--teal); }
 
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
+  /* ─── SCROLL REVEAL ─── */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
   .reveal-delay-4 { transition-delay: 0.4s; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Teal line accent */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
   .teal { color: var(--teal); }
-
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--navy); }
   ::-webkit-scrollbar-thumb { background: rgba(0,194,168,0.3); border-radius: 2px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+
+  /* ═══════════════════════════════════════════
+     QUOTE MODAL SYSTEM
+  ═══════════════════════════════════════════ */
+
+  /* Overlay */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(5, 12, 24, 0.92);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 1.5rem;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .modal-overlay.active { opacity: 1; visibility: visible; }
+  .modal-overlay.active .modal-box { transform: translateY(0) scale(1); opacity: 1; }
+
+  /* Box */
+  .modal-box {
+    background: var(--navy-mid);
+    border: 1px solid rgba(0,194,168,0.2);
+    border-radius: 16px;
+    width: 100%; max-width: 680px;
+    max-height: 92vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(30px) scale(0.97);
+    opacity: 0;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,194,168,0.3) transparent;
+  }
+  .modal-box::-webkit-scrollbar { width: 3px; }
+  .modal-box::-webkit-scrollbar-thumb { background: rgba(0,194,168,0.3); border-radius: 2px; }
+
+  /* Teal accent line at top */
+  .modal-box::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modal-header {
+    padding: 2.25rem 2.5rem 0;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .modal-eyebrow {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--teal);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 0.5rem;
+  }
+  .modal-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--teal); }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem; letter-spacing: 1px; line-height: 1;
+  }
+
+  .modal-close {
+    width: 36px; height: 36px; min-width: 36px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; cursor: none;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem; line-height: 1;
+    transition: all 0.2s;
+    margin-top: 4px;
+  }
+  .modal-close:hover { background: rgba(0,194,168,0.1); border-color: rgba(0,194,168,0.3); color: var(--teal); }
+
+  .modal-body { padding: 1.75rem 2.5rem 2.5rem; }
+
+  /* Modal form fields */
+  .modal-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 0; }
+  .modal-form .form-group { margin-bottom: 1rem; }
+  .modal-form .form-group label {
+    display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 1.5px;
+    text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.45rem;
+  }
+  .modal-form .required-star { color: var(--teal); margin-left: 2px; }
+  .modal-form .form-group input,
+  .modal-form .form-group select,
+  .modal-form .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 0.9rem 1rem;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    outline: none; -webkit-appearance: none; appearance: none;
+  }
+  .modal-form .form-group input::placeholder,
+  .modal-form .form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+  .modal-form .form-group input:focus,
+  .modal-form .form-group select:focus,
+  .modal-form .form-group textarea:focus {
+    border-color: var(--teal);
+    background: rgba(0,194,168,0.04);
+    box-shadow: 0 0 0 3px rgba(0,194,168,0.08);
+  }
+  .modal-form .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300c2a8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 1rem center;
+    padding-right: 2.5rem;
+    cursor: none;
+  }
+  .modal-form .form-group select option { background: var(--navy-mid); color: var(--white); }
+  .modal-form .form-group textarea { resize: vertical; min-height: 100px; }
+
+  /* Section divider inside modal form */
+  .modal-divider {
+    display: flex; align-items: center; gap: 1rem;
+    margin: 0.5rem 0 1.25rem;
+  }
+  .modal-divider span {
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(0,194,168,0.5);
+    white-space: nowrap;
+  }
+  .modal-divider::before, .modal-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(255,255,255,0.07);
+  }
+
+  /* Submit button */
+  .modal-submit {
+    width: 100%; background: var(--teal); color: var(--navy);
+    border: none; padding: 1.1rem;
+    border-radius: 8px; font-family: 'DM Sans', sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; cursor: none;
+    transition: all 0.25s; position: relative; overflow: hidden;
+    margin-top: 0.5rem;
+  }
+  .modal-submit::after {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-100%); transition: transform 0.3s;
+  }
+  .modal-submit:hover::after { transform: translateX(0); }
+  .modal-submit:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0,194,168,0.4); }
+  .modal-submit:disabled { opacity: 0.6; transform: none; box-shadow: none; cursor: not-allowed; }
+
+  /* Privacy note */
+  .modal-privacy {
+    text-align: center; font-size: 0.72rem;
+    color: rgba(255,255,255,0.25); margin-top: 1rem; line-height: 1.5;
+  }
+  .modal-privacy span { color: rgba(0,194,168,0.5); }
+
+  /* ─── SUCCESS STATE ─── */
+  .modal-success {
+    display: none;
+    flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 3.5rem 2.5rem;
+    min-height: 340px;
+  }
+  .modal-success.show { display: flex; }
+  .modal-success-icon {
+    width: 72px; height: 72px;
+    background: rgba(0,194,168,0.1); border: 2px solid rgba(0,194,168,0.3);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 2rem; margin-bottom: 1.5rem;
+    animation: successPop 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  @keyframes successPop { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .modal-success-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+    letter-spacing: 1px; margin-bottom: 0.75rem; color: var(--white);
+  }
+  .modal-success-sub {
+    font-size: 0.95rem; color: rgba(255,255,255,0.55); line-height: 1.7;
+    max-width: 380px; margin-bottom: 1.5rem;
+  }
+  .modal-success-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,194,168,0.1); border: 1px solid rgba(0,194,168,0.25);
+    border-radius: 99px; padding: 0.5rem 1.25rem;
+    font-size: 0.78rem; color: var(--teal); font-weight: 500;
+  }
+  .modal-success-close {
+    margin-top: 1.5rem; background: none; border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.5); padding: 0.65rem 1.5rem; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 1px;
+    text-transform: uppercase; cursor: none; transition: all 0.2s;
+  }
+  .modal-success-close:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
+
+  /* ─── LOADING SPINNER ─── */
+  .spinner {
+    display: inline-block; width: 18px; height: 18px;
+    border: 2px solid rgba(10,22,40,0.3);
+    border-top-color: var(--navy);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── MOBILE RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .nav-links.mobile-open {
+      display: flex; flex-direction: column; gap: 0;
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(10,22,40,0.98); backdrop-filter: blur(20px);
+      padding: 5rem 2rem 2rem; z-index: 99;
+    }
+    .nav-links.mobile-open li a { padding: 1rem 0; display: block; font-size: 1rem; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .nav-links.mobile-open .nav-cta { margin-top: 1rem; display: block; text-align: center; }
+    .mobile-menu-btn {
+      display: flex; flex-direction: column; gap: 5px; background: none; border: none;
+      cursor: none; padding: 4px; z-index: 100; position: relative;
+    }
+    .mobile-menu-btn span { display: block; width: 22px; height: 2px; background: var(--white); transition: all 0.3s; border-radius: 2px; }
+    .hero { padding: 6rem 1.25rem 8rem; }
+    .hero-visual { display: none; }
+    .hero-title { font-size: clamp(3rem, 14vw, 5rem); }
+    .stats-strip { bottom: 1.5rem; left: 1.25rem; right: 1.25rem; gap: 1.5rem; flex-wrap: wrap; }
+    .stat-number { font-size: 2rem; }
+    .services { padding: 4rem 1.25rem; }
+    .services-grid { grid-template-columns: 1fr; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+    .section-sub { text-align: left; max-width: 100%; }
+    .why { padding: 4rem 1.25rem; }
+    .why-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .commercial-cta { padding: 4rem 1.25rem; }
+    .cta-inner { padding: 3rem 1.5rem; }
+    .cta-actions { flex-direction: column; }
+    .areas { padding: 4rem 1.25rem; }
+    .contact { padding: 4rem 1.25rem; }
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.25rem; }
+    .modal-box { border-radius: 12px; max-height: 95vh; }
+    .modal-header { padding: 1.75rem 1.5rem 0; }
+    .modal-body { padding: 1.25rem 1.5rem 2rem; }
+    .modal-form .form-row { grid-template-columns: 1fr; }
+    .modal-title { font-size: 1.8rem; }
+  }
 </style>
 </head>
 <body>
@@ -766,15 +647,119 @@
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
+<!-- ═══ QUOTE MODAL ═══ -->
+<div class="modal-overlay" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box" id="modalBox">
+
+    <!-- FORM STATE -->
+    <div id="modalFormState">
+      <div class="modal-header">
+        <div>
+          <div class="modal-eyebrow">Free Estimate</div>
+          <h2 class="modal-title" id="modalTitle">GET YOUR FREE QUOTE</h2>
+        </div>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <form class="modal-form" id="quoteForm" novalidate>
+
+          <div class="modal-divider"><span>Contact Info</span></div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name <span class="required-star">*</span></label>
+              <input type="text" name="full_name" placeholder="Jane Smith" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number <span class="required-star">*</span></label>
+              <input type="tel" name="phone" placeholder="(603) 555-0000" required autocomplete="tel">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email Address <span class="required-star">*</span></label>
+            <input type="email" name="email" placeholder="you@example.com" required autocomplete="email">
+          </div>
+
+          <div class="modal-divider"><span>Job Details</span></div>
+
+          <div class="form-group">
+            <label>Service Address <span class="required-star">*</span></label>
+            <input type="text" name="service_address" placeholder="123 Main St, Manchester, NH" required autocomplete="street-address">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Type of Service <span class="required-star">*</span></label>
+              <select name="service_type" required>
+                <option value="" disabled selected>Select service...</option>
+                <option value="Residential Cleaning">🏠 Residential Cleaning</option>
+                <option value="Commercial Cleaning">🏢 Commercial Cleaning</option>
+                <option value="Window Cleaning">🪟 Window Cleaning</option>
+                <option value="Deep Clean & Sanitizing">🔬 Deep Clean & Sanitizing</option>
+                <option value="Move In / Move Out">📦 Move In / Move Out</option>
+                <option value="Other">✦ Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Frequency <span class="required-star">*</span></label>
+              <select name="frequency" required>
+                <option value="" disabled selected>How often?</option>
+                <option value="One-time">One-time</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Bi-weekly">Bi-weekly</option>
+                <option value="Monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Message / Notes <span style="color:rgba(255,255,255,0.25);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+            <textarea name="message" placeholder="Square footage, number of rooms, any special requirements, preferred time..."></textarea>
+          </div>
+
+          <button type="submit" class="modal-submit" id="modalSubmitBtn">
+            Request My Free Quote →
+          </button>
+
+          <p class="modal-privacy">
+            🔒 Your info is only used to prepare your quote. No spam, ever.<br>
+            <span>We respond within 24 hours — usually much faster.</span>
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="modal-success" id="modalSuccess">
+      <div class="modal-success-icon">✓</div>
+      <h3 class="modal-success-title">REQUEST RECEIVED!</h3>
+      <p class="modal-success-sub">
+        Thanks! We'll reach out shortly to schedule a call and go over your quote. Check your email for a confirmation.
+      </p>
+      <div class="modal-success-badge">
+        <span>⚡</span> Typical response: under 24 hours
+      </div>
+      <button class="modal-success-close" id="successCloseBtn">Close</button>
+    </div>
+
+  </div>
+</div>
+
 <!-- NAV -->
-<nav>
+<nav id="mainNav">
   <a href="#" class="nav-logo">WHITTAKER<span>.</span></a>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#services">Services</a></li>
     <li><a href="#why">Why Us</a></li>
     <li><a href="#areas">Service Area</a></li>
-    <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="javascript:void(0)" class="nav-cta open-quote-modal">Get a Free Quote</a></li>
   </ul>
+  <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" style="display:none">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
@@ -794,7 +779,7 @@
       Professional cleaning services for offices, facilities, and commercial spaces across Manchester and Southern NH. Reliable, insured, and built around your schedule.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary btn-large">Get a Free Quote</a>
+      <button class="btn-primary btn-large open-quote-modal">Get a Free Quote</button>
       <a href="#services" class="btn-ghost">
         Our Services
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -812,22 +797,10 @@
   </div>
 
   <div class="stats-strip">
-    <div class="stat">
-      <div class="stat-number">50+</div>
-      <div class="stat-label">Happy Clients</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">5★</div>
-      <div class="stat-label">Avg. Rating</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">100%</div>
-      <div class="stat-label">Insured & Bonded</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">NH</div>
-      <div class="stat-label">Locally Owned</div>
-    </div>
+    <div class="stat"><div class="stat-number">50+</div><div class="stat-label">Happy Clients</div></div>
+    <div class="stat"><div class="stat-number">5★</div><div class="stat-label">Avg. Rating</div></div>
+    <div class="stat"><div class="stat-number">100%</div><div class="stat-label">Insured & Bonded</div></div>
+    <div class="stat"><div class="stat-number">NH</div><div class="stat-label">Locally Owned</div></div>
   </div>
 </section>
 
@@ -840,7 +813,6 @@
     </div>
     <p class="section-sub">From daily office maintenance to one-time deep cleans — we handle it all so you can focus on running your business.</p>
   </div>
-
   <div class="services-grid reveal">
     <div class="service-card featured">
       <div class="service-tag">Most Popular</div>
@@ -888,46 +860,29 @@
       <h2 class="section-title">THE DIFFERENCE<br>IS IN THE DETAILS</h2>
     </div>
   </div>
-
   <div class="why-grid">
     <div class="why-features reveal">
       <div class="why-feature">
         <div class="why-feature-icon">🛡️</div>
-        <div>
-          <div class="why-feature-title">Fully Insured & Bonded</div>
-          <div class="why-feature-desc">Full liability coverage on every job. You're protected, always.</div>
-        </div>
+        <div><div class="why-feature-title">Fully Insured & Bonded</div><div class="why-feature-desc">Full liability coverage on every job. You're protected, always.</div></div>
       </div>
       <div class="why-feature">
         <div class="why-feature-icon">📅</div>
-        <div>
-          <div class="why-feature-title">Flexible Scheduling</div>
-          <div class="why-feature-desc">Early mornings, evenings, weekends — we work around your business, not the other way around.</div>
-        </div>
+        <div><div class="why-feature-title">Flexible Scheduling</div><div class="why-feature-desc">Early mornings, evenings, weekends — we work around your business, not the other way around.</div></div>
       </div>
       <div class="why-feature">
         <div class="why-feature-icon">📍</div>
-        <div>
-          <div class="why-feature-title">Locally Owned</div>
-          <div class="why-feature-desc">Manchester-based, community-focused. You're supporting a local business every time you book.</div>
-        </div>
+        <div><div class="why-feature-title">Locally Owned</div><div class="why-feature-desc">Manchester-based, community-focused. You're supporting a local business every time you book.</div></div>
       </div>
       <div class="why-feature">
         <div class="why-feature-icon">✅</div>
-        <div>
-          <div class="why-feature-title">Consistent Quality</div>
-          <div class="why-feature-desc">Same standards every visit. No shortcuts, no excuses. You know what you're getting.</div>
-        </div>
+        <div><div class="why-feature-title">Consistent Quality</div><div class="why-feature-desc">Same standards every visit. No shortcuts, no excuses. You know what you're getting.</div></div>
       </div>
       <div class="why-feature">
         <div class="why-feature-icon">💬</div>
-        <div>
-          <div class="why-feature-title">Responsive Communication</div>
-          <div class="why-feature-desc">Questions, changes, last-minute requests — we pick up and we respond.</div>
-        </div>
+        <div><div class="why-feature-title">Responsive Communication</div><div class="why-feature-desc">Questions, changes, last-minute requests — we pick up and we respond.</div></div>
       </div>
     </div>
-
     <div class="why-visual reveal reveal-delay-2">
       <div class="why-visual-title">What Clients Say</div>
       <div class="testimonial-card">
@@ -935,10 +890,7 @@
         <div class="testimonial-text">"Finally a cleaning company that shows up on time and actually does what they say. Our office has never looked this good consistently."</div>
         <div class="testimonial-author">
           <div class="testimonial-avatar">MR</div>
-          <div>
-            <div class="testimonial-name">M. Reynolds</div>
-            <div class="testimonial-company">Property Manager, Manchester NH</div>
-          </div>
+          <div><div class="testimonial-name">M. Reynolds</div><div class="testimonial-company">Property Manager, Manchester NH</div></div>
         </div>
       </div>
       <div class="testimonial-card">
@@ -946,13 +898,10 @@
         <div class="testimonial-text">"They cleaned our office before we moved in. Immaculate. Booked them for weekly service on the spot. Highly recommend."</div>
         <div class="testimonial-author">
           <div class="testimonial-avatar">KL</div>
-          <div>
-            <div class="testimonial-name">K. LaPointe</div>
-            <div class="testimonial-company">Small Business Owner, Bedford NH</div>
-          </div>
+          <div><div class="testimonial-name">K. LaPointe</div><div class="testimonial-company">Small Business Owner, Bedford NH</div></div>
         </div>
       </div>
-      <p style="font-size:0.72rem; color:rgba(255,255,255,0.3); margin-top:1rem; text-align:center; letter-spacing:1px; text-transform:uppercase;">Placeholder reviews — real ones coming soon</p>
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);margin-top:1rem;text-align:center;letter-spacing:1px;text-transform:uppercase;">Placeholder reviews — real ones coming soon</p>
     </div>
   </div>
 </section>
@@ -964,7 +913,7 @@
     <h2 class="cta-title">READY TO KEEP YOUR<br><span class="teal">FACILITY SPOTLESS?</span></h2>
     <p class="cta-sub">We're actively taking on new commercial accounts in the Manchester area. Get a custom quote within 24 hours.</p>
     <div class="cta-actions">
-      <a href="#contact" class="btn-primary btn-large">Request a Quote</a>
+      <button class="btn-primary btn-large open-quote-modal">Request a Quote</button>
       <a href="tel:+16035550000" class="btn-ghost">
         Call Us Direct
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -1006,63 +955,57 @@
     </div>
     <p class="section-sub">We respond to all quote requests within 24 hours. Commercial accounts get priority scheduling.</p>
   </div>
-
   <div class="contact-grid">
     <div class="contact-info reveal">
       <div class="contact-detail">
         <div class="contact-icon">📍</div>
-        <div>
-          <div class="contact-label">Based In</div>
-          <div class="contact-value">Manchester, New Hampshire</div>
-        </div>
+        <div><div class="contact-label">Based In</div><div class="contact-value">Manchester, New Hampshire</div></div>
       </div>
       <div class="contact-detail">
         <div class="contact-icon">📞</div>
-        <div>
-          <div class="contact-label">Phone</div>
-          <div class="contact-value">Coming soon</div>
-        </div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">Coming soon</div></div>
       </div>
       <div class="contact-detail">
         <div class="contact-icon">✉️</div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value">Coming soon</div>
-        </div>
+        <div><div class="contact-label">Email</div><div class="contact-value">Coming soon</div></div>
       </div>
       <div class="contact-detail">
         <div class="contact-icon">🕐</div>
-        <div>
-          <div class="contact-label">Response Time</div>
-          <div class="contact-value">Within 24 hours</div>
-        </div>
+        <div><div class="contact-label">Response Time</div><div class="contact-value">Within 24 hours</div></div>
+      </div>
+      <!-- Quick-action CTA inside contact section -->
+      <div style="margin-top:2rem;padding:1.5rem;background:rgba(0,194,168,0.06);border:1px solid rgba(0,194,168,0.15);border-radius:10px;">
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.55);margin-bottom:1rem;line-height:1.6;">Prefer the quick route? Use our quote form and we'll handle the rest.</p>
+        <button class="btn-primary open-quote-modal" style="width:100%;text-align:center;display:block;padding:0.85rem 1rem;">
+          Open Quote Form →
+        </button>
       </div>
     </div>
 
     <div class="contact-form reveal reveal-delay-2">
-      <form onsubmit="handleSubmit(event)">
+      <form id="contactForm" novalidate>
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
-            <input type="text" placeholder="John" required>
+            <input type="text" name="first_name" placeholder="John" required>
           </div>
           <div class="form-group">
             <label>Last Name</label>
-            <input type="text" placeholder="Smith" required>
+            <input type="text" name="last_name" placeholder="Smith" required>
           </div>
         </div>
         <div class="form-group">
           <label>Email</label>
-          <input type="email" placeholder="john@yourcompany.com" required>
+          <input type="email" name="email" placeholder="john@yourcompany.com" required>
         </div>
         <div class="form-group">
           <label>Phone</label>
-          <input type="tel" placeholder="(603) 555-0000">
+          <input type="tel" name="phone" placeholder="(603) 555-0000">
         </div>
         <div class="form-group">
           <label>Service Type</label>
-          <select>
-            <option value="">Select a service...</option>
+          <select name="service_type">
+            <option value="" disabled selected>Select a service...</option>
             <option>Commercial Office Cleaning</option>
             <option>Facility & Industrial Cleaning</option>
             <option>Deep Clean & Sanitizing</option>
@@ -1073,9 +1016,9 @@
         </div>
         <div class="form-group">
           <label>Tell us about your space</label>
-          <textarea placeholder="Square footage, frequency, any specific requirements..."></textarea>
+          <textarea name="message" placeholder="Square footage, frequency, any specific requirements..."></textarea>
         </div>
-        <button type="submit" class="form-submit">Send Quote Request →</button>
+        <button type="submit" class="form-submit" id="contactSubmitBtn">Send Quote Request →</button>
       </form>
     </div>
   </div>
@@ -1089,69 +1032,255 @@
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+/* ═══════════════════════════════════════════
+   CONFIGURATION — EDIT THESE
+═══════════════════════════════════════════ */
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+// ↑ Replace YOUR_FORM_ID with the ID from formspree.io after creating your form.
+// Sign up free at formspree.io, create a form, paste the endpoint here.
+// Example: 'https://formspree.io/f/xpwzabcd'
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
+/* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
 
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+function animateRing() {
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
 
-  document.querySelectorAll('a, button, .service-card, .why-feature, .testimonial-card, .area-pill').forEach(el => {
+function addCursorHover(selector) {
+  document.querySelectorAll(selector).forEach(el => {
     el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
     el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
   });
+}
+addCursorHover('a, button, .service-card, .why-feature, .testimonial-card, .area-pill, input, select, textarea');
 
-  // Particles
-  const container = document.getElementById('particles');
-  for (let i = 0; i < 20; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.style.left = Math.random() * 50 + '%';
-    p.style.animationDuration = (8 + Math.random() * 12) + 's';
-    p.style.animationDelay = (Math.random() * 10) + 's';
-    p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
-    container.appendChild(p);
+/* ═══════════════════════════════════════════
+   PARTICLES
+═══════════════════════════════════════════ */
+const pContainer = document.getElementById('particles');
+for (let i = 0; i < 20; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 50 + '%';
+  p.style.animationDuration = (8 + Math.random() * 12) + 's';
+  p.style.animationDelay = (Math.random() * 10) + 's';
+  p.style.width = p.style.height = (1 + Math.random() * 2) + 'px';
+  pContainer.appendChild(p);
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ═══════════════════════════════════════════
+   NAV SCROLL + MOBILE MENU
+═══════════════════════════════════════════ */
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').style.background =
+    window.scrollY > 50 ? 'rgba(10,22,40,0.97)' : 'linear-gradient(to bottom, rgba(10,22,40,0.95) 0%, transparent 100%)';
+});
+
+// Show mobile menu button on small screens
+function checkMobile() {
+  const mBtn = document.getElementById('mobileMenuBtn');
+  mBtn.style.display = window.innerWidth <= 768 ? 'flex' : 'none';
+}
+checkMobile();
+window.addEventListener('resize', checkMobile);
+
+document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('mobile-open');
+});
+
+/* ═══════════════════════════════════════════
+   MODAL SYSTEM
+═══════════════════════════════════════════ */
+const modal = document.getElementById('quoteModal');
+const modalFormState = document.getElementById('modalFormState');
+const modalSuccess = document.getElementById('modalSuccess');
+
+function openModal() {
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  // Reset to form state if success was showing
+  modalFormState.style.display = '';
+  modalSuccess.classList.remove('show');
+}
+
+function closeModal() {
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// All "Get a Free Quote" buttons
+document.querySelectorAll('.open-quote-modal').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    openModal();
+    // Close mobile nav if open
+    document.getElementById('navLinks').classList.remove('mobile-open');
+  });
+});
+
+// Close via X button
+document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+document.getElementById('successCloseBtn').addEventListener('click', closeModal);
+
+// Close on overlay click (outside modal box)
+modal.addEventListener('click', e => {
+  if (e.target === modal) closeModal();
+});
+
+// Close on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+});
+
+/* ═══════════════════════════════════════════
+   FORM SUBMISSION — FORMSPREE
+═══════════════════════════════════════════ */
+async function submitToFormspree(formData, buttonEl) {
+  // Show loading state
+  const originalText = buttonEl.innerHTML;
+  buttonEl.innerHTML = '<span class="spinner"></span> Sending...';
+  buttonEl.disabled = true;
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (response.ok) {
+      return { success: true };
+    } else {
+      const data = await response.json();
+      return { success: false, error: data.error || 'Submission failed' };
+    }
+  } catch (err) {
+    return { success: false, error: 'Network error — please try again.' };
+  } finally {
+    buttonEl.innerHTML = originalText;
+    buttonEl.disabled = false;
+  }
+}
+
+// ─── MODAL FORM SUBMIT ───
+document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  // Basic validation
+  if (!this.checkValidity()) {
+    this.reportValidity();
+    return;
   }
 
-  // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); }
-    });
-  }, { threshold: 0.1 });
+  const formData = new FormData(this);
+  // Add metadata for clean email formatting
+  formData.append('_subject', '🧹 New Free Quote Request — Whittaker Home Services');
+  formData.append('_template', 'table');
+  formData.append('source', 'Quote Modal');
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const btn = document.getElementById('modalSubmitBtn');
 
-  // Form submit
-  function handleSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.form-submit');
+  // If endpoint isn't configured, show demo success
+  if (FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+    showModalSuccess();
+    return;
+  }
+
+  const result = await submitToFormspree(formData, btn);
+
+  if (result.success) {
+    showModalSuccess();
+    this.reset();
+  } else {
+    alert('Something went wrong: ' + result.error + '\n\nPlease try again or call us directly.');
+  }
+});
+
+function showModalSuccess() {
+  modalFormState.style.display = 'none';
+  modalSuccess.classList.add('show');
+  // Scroll modal to top
+  document.getElementById('modalBox').scrollTop = 0;
+}
+
+// ─── CONTACT SECTION FORM SUBMIT ───
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const btn = document.getElementById('contactSubmitBtn');
+  const formData = new FormData(this);
+  formData.append('_subject', '🧹 New Quote Request — Whittaker Home Services');
+  formData.append('_template', 'table');
+  formData.append('source', 'Contact Section');
+
+  if (FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
     btn.textContent = '✓ Request Sent — We\'ll be in touch within 24 hours';
     btn.style.background = 'rgba(0,194,168,0.3)';
     btn.style.color = 'rgba(255,255,255,0.8)';
     btn.disabled = true;
+    return;
   }
 
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    document.querySelector('nav').style.background =
-      window.scrollY > 50
-        ? 'rgba(10,22,40,0.97)'
-        : 'linear-gradient(to bottom, rgba(10,22,40,0.95) 0%, transparent 100%)';
-  });
+  const result = await submitToFormspree(formData, btn);
+
+  if (result.success) {
+    btn.textContent = '✓ Request Sent — We\'ll be in touch within 24 hours';
+    btn.style.background = 'rgba(0,194,168,0.3)';
+    btn.style.color = 'rgba(255,255,255,0.8)';
+    btn.disabled = true;
+    this.reset();
+  } else {
+    alert('Something went wrong: ' + result.error);
+  }
+});
 </script>
+
+<!-- ═══════════════════════════════════════════
+  SETUP INSTRUCTIONS (remove before going live)
+  ════════════════════════════════════════════
+
+  TO ACTIVATE THE LEAD CAPTURE SYSTEM:
+
+  1. Go to https://formspree.io and create a free account
+  2. Click "New Form" and name it "Whittaker Quote Requests"
+  3. Copy your form endpoint (looks like: https://formspree.io/f/xpwzabcd)
+  4. In this file, find the line:
+       const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+     and replace YOUR_FORM_ID with your actual form ID
+
+  5. In Formspree dashboard > Settings > Notifications:
+     - Set your email address for instant notifications
+     - Enable "Auto-reply" and use this message:
+       Subject: We received your quote request — Whittaker Home Services
+       Body: "Hi {full_name}, thanks for reaching out! We received your
+       request and will contact you shortly to discuss your quote.
+       — The Whittaker Team"
+
+  6. All leads will be stored in the Formspree Submissions dashboard
+     at formspree.io/forms — you can export to CSV anytime.
+
+  FREE TIER: 50 submissions/month. Upgrade ($10/mo) for unlimited.
+
+════════════════════════════════════════════ -->
 </body>
 </html>
